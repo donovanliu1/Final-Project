@@ -1,7 +1,29 @@
-[gd_scene format=3 uid="uid://7bdmroqk35ft"]
+[gd_scene load_steps=5 format=3 uid="uid://7bdmroqk35ft"]
+
+[ext_resource type="Script" path="res://Scripts/monster.gd" id="1_ebies"]
+[ext_resource type="Texture2D" uid="uid://bl2ujfpukxkv5" path="res://Assets/IMG_7827.jpg" id="1_ugl30"]
+[ext_resource type="Texture2D" uid="uid://b3qji6elwkwux" path="res://Assets/unnamed.jpg" id="3_fs4s1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ovr6g"]
+size = Vector3(2.5, 2.5, 0)
 
 [node name="Monster" type="Node3D"]
+script = ExtResource("1_ebies")
 
-[node name="Pivot" type="Node3D" parent="."]
+[node name="RaymondFace" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32, 0)
+pixel_size = 0.001
+shaded = true
+texture = ExtResource("1_ugl30")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Pivot"]
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_ovr6g")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.0390468)
+pixel_size = 0.001
+shaded = true
+texture = ExtResource("3_fs4s1")
