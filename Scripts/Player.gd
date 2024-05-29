@@ -1,10 +1,17 @@
 extends CharacterBody3D
 
 var speed
+var recovering
+var time_elapsed
+
 const WALK_SPEED = 5.0
 const SPRINT_SPEED = 10.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.003
+const STAMINA_MAX = 1000
+const STAMINA_WAIT = 2.0
+
+
 
 #view bobbing
 const BOB_FREQ = 2.0
@@ -21,9 +28,13 @@ var gravity = 9.8
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
+@onready var stamina = $Control/StaminaBar
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	stamina.value = STAMINA_MAX
+	recovering = false
+	time_elapsed = 0.0
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -41,10 +52,14 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 		
 	# handle sprint
-	if Input.is_action_pressed("sprint") and is_on_floor():
+	if Input.is_action_pressed("sprint") and is_on_floor() and stamina.value > 0:
 		speed = SPRINT_SPEED
+		if not velocity.is_zero_approx():
+			stamina.value -= delta * 35.0
 	elif speed == SPRINT_SPEED and not is_on_floor():
 		speed = SPRINT_SPEED
+		if not velocity.is_zero_approx():
+			stamina.value -= delta * 35.0
 	else:
 		speed = WALK_SPEED
 
@@ -78,7 +93,7 @@ func _physics_process(delta):
 	var velocity_clamped = clamp(velocity.length(), 0.5, SPRINT_SPEED * 2)
 	var target_fov = BASE_FOV + FOV_CHANGE + velocity_clamped
 	camera.fov = lerp(camera.fov, target_fov, delta * 8.0)
-
+		
 	move_and_slide()
 
 func _headbob(time) -> Vector3:
