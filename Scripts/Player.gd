@@ -53,7 +53,7 @@ func _physics_process(delta):
 		
 	# handle sprint
 	#print(velocity, " ", velocity.is_zero_approx())
-	print("player position:", position)
+	#print("player position:", position)
 	if Input.is_action_pressed("sprint") and is_on_floor() and stamina.value > 0:
 		speed = SPRINT_SPEED
 		
