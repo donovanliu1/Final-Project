@@ -11,7 +11,7 @@ const SENSITIVITY = 0.003
 const STAMINA_MAX = 500
 const STAMINA_WAIT = 2.0
 
-
+signal hit
 
 #view bobbing
 const BOB_FREQ = 2.0
@@ -56,10 +56,8 @@ func _physics_process(delta):
 	#print("player position:", position)
 	if Input.is_action_pressed("sprint") and is_on_floor() and stamina.value > 0:
 		speed = SPRINT_SPEED
-		
 		if pythagorean_theorem(velocity) >= 1:
-			stamina.value -= 35.0 * delta
-			
+			stamina.value -= 35.0 * delta			
 	elif speed == SPRINT_SPEED and not is_on_floor():
 		if pythagorean_theorem(velocity) >= 1:
 			stamina.value -= 35.0 * delta
@@ -108,3 +106,6 @@ func _headbob(time) -> Vector3:
 func pythagorean_theorem(velo) -> float:
 	return sqrt(pow(velo.x, 2.0) + pow(velo.z, 2.0))
 	
+
+func _on_raymond_detector_body_entered(body):
+	hit.emit()

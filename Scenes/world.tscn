@@ -1,8 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://co8p3k1m6sie1"]
+[gd_scene load_steps=15 format=3 uid="uid://co8p3k1m6sie1"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_625js"]
 [ext_resource type="PackedScene" uid="uid://dgwt0evwfqu2" path="res://Scenes/player.tscn" id="1_afl3j"]
 [ext_resource type="PackedScene" uid="uid://7bdmroqk35ft" path="res://Scenes/monster.tscn" id="2_1whuu"]
+[ext_resource type="FontFile" uid="uid://bsk05luxqek5a" path="res://Assets/MinecraftBold-nMK1.otf" id="4_xd2na"]
+[ext_resource type="Texture2D" uid="uid://bl2ujfpukxkv5" path="res://Assets/IMG_7827.jpg" id="5_ipctu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yth4w"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -39,6 +41,10 @@ fill_from = Vector2(0, 1)
 albedo_color = Color(0.882353, 0.980392, 0, 1)
 albedo_texture = SubResource("GradientTexture2D_tcmko")
 
+[sub_resource type="Theme" id="Theme_uet85"]
+default_font = ExtResource("4_xd2na")
+default_font_size = 20
+
 [node name="World" type="Node3D"]
 script = ExtResource("1_625js")
 
@@ -65,44 +71,111 @@ navigation_mesh = SubResource("NavigationMesh_lv8p0")
 [node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/TestMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6709, -0.4995, -0.5)
 use_collision = true
+collision_layer = 4
+collision_mask = 3
 size = Vector3(80, 0.001, 80)
 material = SubResource("StandardMaterial3D_n3t2q")
 
 [node name="CSGBox3D8" type="CSGBox3D" parent="NavigationRegion3D/TestMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9699, -1.03771, 13.0024)
 use_collision = true
+collision_layer = 4
+collision_mask = 3
 size = Vector3(5, 3, 5)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/TestMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.59277, 4.53917, 39)
 use_collision = true
+collision_layer = 4
+collision_mask = 3
 size = Vector3(80, 10, 1)
 material = SubResource("StandardMaterial3D_kicxa")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D/TestMap"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 45.5928, 4.53917, -0.999998)
 use_collision = true
+collision_layer = 4
+collision_mask = 3
 size = Vector3(80, 10, 1)
 material = SubResource("StandardMaterial3D_kicxa")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D/TestMap"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 6.59277, 4.53917, -40)
 use_collision = true
+collision_layer = 4
+collision_mask = 3
 size = Vector3(80, 10, 1)
 material = SubResource("StandardMaterial3D_kicxa")
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D/TestMap"]
 transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -32.7994, 4.53917, -1)
 use_collision = true
+collision_layer = 4
+collision_mask = 3
 size = Vector3(80, 10, 1)
 material = SubResource("StandardMaterial3D_kicxa")
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="NavigationRegion3D/TestMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9742, -0.00492692, -1.99709)
 use_collision = true
+collision_layer = 4
+collision_mask = 3
 size = Vector3(5, 5, 5)
 
 [node name="CSGBox3D7" type="CSGBox3D" parent="NavigationRegion3D/TestMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9699, -0.037714, 6.00244)
 use_collision = true
+collision_layer = 4
+collision_mask = 3
 size = Vector3(5, 3, 5)
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(244, -479)
+theme = SubResource("Theme_uet85")
+
+[node name="GameOverScreen" type="Sprite2D" parent="UserInterface"]
+position = Vector2(616, 364)
+scale = Vector2(0.75, 0.3)
+texture = ExtResource("5_ipctu")
+
+[node name="DiedText" type="Label" parent="UserInterface"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 300.0
+offset_top = -160.0
+offset_right = 436.0
+offset_bottom = -140.0
+grow_vertical = 2
+scale = Vector2(5, 5)
+theme_override_fonts/font = ExtResource("4_xd2na")
+theme_override_font_sizes/font_size = 20
+text = "you died lol"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RetryText" type="Label" parent="UserInterface"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -246.0
+offset_top = -30.0
+offset_right = 4.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+text = "press enter to retry"
+
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
