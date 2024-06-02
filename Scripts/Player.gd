@@ -7,7 +7,7 @@ var time_elapsed
 const WALK_SPEED = 5.0
 const SPRINT_SPEED = 10.0
 const JUMP_VELOCITY = 4.5
-const SENSITIVITY = 0.003
+const SENSITIVITY = 0.002
 const STAMINA_MAX = 500
 const STAMINA_WAIT = 2.0
 
